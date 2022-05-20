@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">NotesV2</string>
+    <string name="title_home">Home</string>
+    <string name="title_add">Add</string>
+    <string name="title_favorite">Favorite</string>
+    <string name="save">Save</string>
+    <string name="empty">Empty</string>
+    <string name="your_notes">Your notes</string>
+    <string name="add_notes">Add notes</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="back">back</string>
+    <string name="theme">Theme</string>
+    <string name="content">Content</string>
+    <string name="notes_details">Notes details</string>
+    <string name="settings">Settings</string>
+    <string name="delete_all">Delete all</string>
+
+    <string name="long_theme">Enter a shorter theme</string>
+    <string name="theme_is_empty">Please enter theme</string>
+
+    <string name="error_unknown">Failed to save note</string>
+    <string name="your_favorite_notes">Your favorite notes</string>
+    <string name="go_back">Go back</string>
+
+    <string name="error">Error</string>
+
+
+</resources>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.notesv2.presentation.screens.home.HomeFragment"
+        android:label=""
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_add"
+        android:name="com.example.notesv2.presentation.screens.add.AddFragment"
+        android:label=""
+        tools:layout="@layout/fragment_add" />
+
+    <fragment
+        android:id="@+id/navigation_favorite"
+        android:name="com.example.notesv2.presentation.screens.favorite.FavoriteFragment"
+        android:label=""
+        tools:layout="@layout/fragment_favorite" />
+
+    <fragment
+        android:id="@+id/navigation_details"
+        android:name="com.example.notesv2.presentation.screens.detail.DetailFragment"
+        android:label=""
+        tools:layout="@layout/fragment_detail" />
+
+</navigation>
