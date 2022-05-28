@@ -18,17 +18,17 @@ class DaoCoroutineRealization  @Inject constructor(private val repository: NoteR
 
     override fun insert(notes: Notes) =
         viewModelScope.launch(Dispatchers.IO) {
-            repository.insert(notes) {}
+            repository.insert(notes)
         }
 
     override fun delete(notes: Notes) =
         viewModelScope.launch(Dispatchers.IO) {
-            repository.delete(notes) {}
+            repository.delete(notes)
         }
 
     override fun update(notes: Notes) =
         viewModelScope.launch(Dispatchers.IO) {
-            repository.update(notes) {}
+            repository.update(notes)
         }
 
     override fun findByUid(uid: Int) = repository.findByUid(uid)

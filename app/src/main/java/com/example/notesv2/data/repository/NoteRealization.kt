@@ -11,9 +11,9 @@ class NoteRealization  @Inject constructor(private val notesDao: NotesDao) : Not
     override fun getAllNotes(): LiveData<List<Notes>> = notesDao.getAll()
     override fun getLikeNotes(): LiveData<List<Notes>> = notesDao.getLikeNotes()
 
-    override suspend fun insert(notes: Notes, onSuccess: () -> Unit) = notesDao.insert(notes)
-    override suspend fun delete(notes: Notes, onSuccess: () -> Unit) = notesDao.delete(notes)
-    override suspend fun update(notes: Notes, onSuccess: () -> Unit) = notesDao.update(notes)
+    override suspend fun insert(notes: Notes) = notesDao.insert(notes)
+    override suspend fun delete(notes: Notes) = notesDao.delete(notes)
+    override suspend fun update(notes: Notes) = notesDao.update(notes)
 
     override fun findByUid(uid: Int): LiveData<Notes> = notesDao.findByUid(uid)
 

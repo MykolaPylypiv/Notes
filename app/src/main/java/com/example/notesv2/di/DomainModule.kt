@@ -1,7 +1,6 @@
 package com.example.notesv2.di
 
 import android.content.Context
-import com.example.notesv2.domain.interactor.InteractorAdd
 import com.example.notesv2.domain.interactor.InteractorDetail
 import com.example.notesv2.domain.interactor.InteractorFavorite
 import com.example.notesv2.domain.interactor.InteractorHome
@@ -65,12 +64,6 @@ class DomainModule {
     fun provideInteractorDetail(
         daoRealizationUseCases: DaoRealizationUseCases,
     ): InteractorDetail = InteractorDetail(daoRealizationUseCases)
-
-    @Provides
-    fun provideInteractorAdd(
-        addNoteUseCase: AddNoteUseCases,
-        context: Context
-    ): InteractorAdd = InteractorAdd(addNoteUseCase, context)
 
 
     @Provides
