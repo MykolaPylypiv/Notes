@@ -1,14 +1,17 @@
 package com.example.notesv2.data.repository
 
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.notesv2.R
 import com.example.notesv2.data.entities.Notes
 import com.example.notesv2.domain.repositories.FavoriteChangeRepository
-import com.example.notesv2.domain.usecases.DaoRealizationUseCases
+import com.example.notesv2.domain.usecases.noteFunction.UpdateNoteUseCase
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class FavoriteChangeRealization @Inject constructor(
-    private val daoRealizationUseCases: DaoRealizationUseCases
-) : FavoriteChangeRepository {
+    private val updateNoteUseCase: UpdateNoteUseCase
+) : ViewModel(), FavoriteChangeRepository {
 
     override fun likeShow(notes: Notes) =
         if (notes.isLike)
@@ -18,7 +21,10 @@ class FavoriteChangeRealization @Inject constructor(
 
     override fun like(notes: Notes): Int {
         notes.isLike = !notes.isLike
-        daoRealizationUseCases.update(notes)
+
+        viewModelScope.launch {
+            updateNoteUseCase.invoke(notes)
+        }
 
         return likeShow(notes)
     }
