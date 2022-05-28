@@ -1,12 +1,12 @@
-package com.example.notesv2.presentation.view.screens.detail
+package com.example.notesv2.presentation.viewmodel
 
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.notesv2.R
 import com.example.notesv2.core.BaseViewModel
 import com.example.notesv2.domain.model.Notes
-import com.example.notesv2.domain.interactor.usecases.noteFunction.FindByUidNoteUseCase
-import com.example.notesv2.domain.interactor.usecases.noteFunction.UpdateNoteUseCase
+import com.example.notesv2.domain.interactor.usecases.FindByUidNoteUseCase
+import com.example.notesv2.domain.interactor.usecases.UpdateNoteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

@@ -4,7 +4,7 @@ import android.app.AlertDialog
 import androidx.fragment.app.FragmentActivity
 import com.example.notesv2.*
 import com.example.notesv2.core.Dialog
-import com.example.notesv2.presentation.view.screens.home.HomeViewModel
+import com.example.notesv2.presentation.viewmodel.HomeViewModel
 import javax.inject.Inject
 
 class DeleteDialog @Inject constructor() : Dialog<HomeViewModel> {

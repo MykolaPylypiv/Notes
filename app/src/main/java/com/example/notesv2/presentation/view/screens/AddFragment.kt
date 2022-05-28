@@ -1,4 +1,4 @@
-package com.example.notesv2.presentation.view.screens.add
+package com.example.notesv2.presentation.view.screens
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,6 +7,7 @@ import com.example.notesv2.R
 import com.example.notesv2.core.BaseFragment
 import com.example.notesv2.domain.model.Notes
 import com.example.notesv2.databinding.FragmentAddBinding
+import com.example.notesv2.presentation.viewmodel.AddViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

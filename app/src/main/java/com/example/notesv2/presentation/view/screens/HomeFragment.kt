@@ -1,4 +1,4 @@
-package com.example.notesv2.presentation.view.screens.home
+package com.example.notesv2.presentation.view.screens
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,6 +9,7 @@ import com.example.notesv2.R
 import com.example.notesv2.core.BaseFragment
 import com.example.notesv2.databinding.FragmentHomeBinding
 import com.example.notesv2.presentation.view.adapter.NotesAdapter
+import com.example.notesv2.presentation.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,7 +31,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         viewModel.getAllNotes().observe(viewLifecycleOwner) { list ->
             adapter.map(list.asReversed())
-            viewModel.visible(list)
+            viewModel.changeVisibility(list).apply(binding.empty)
         }
 
         viewModel.isLayout.observe(viewLifecycleOwner) {

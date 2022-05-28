@@ -1,4 +1,4 @@
-package com.example.notesv2.domain.interactor.usecases.noteFunction
+package com.example.notesv2.domain.interactor.usecases
 
 import androidx.lifecycle.LiveData
 import com.example.notesv2.domain.model.Notes

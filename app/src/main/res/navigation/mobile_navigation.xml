@@ -7,25 +7,25 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.notesv2.presentation.view.screens.home.HomeFragment"
+        android:name="com.example.notesv2.presentation.view.screens.HomeFragment"
         android:label=""
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_add"
-        android:name="com.example.notesv2.presentation.view.screens.add.AddFragment"
+        android:name="com.example.notesv2.presentation.view.screens.AddFragment"
         android:label=""
         tools:layout="@layout/fragment_add" />
 
     <fragment
         android:id="@+id/navigation_favorite"
-        android:name="com.example.notesv2.presentation.view.screens.favorite.FavoriteFragment"
+        android:name="com.example.notesv2.presentation.view.screens.FavoriteFragment"
         android:label=""
         tools:layout="@layout/fragment_favorite" />
 
     <fragment
         android:id="@+id/navigation_details"
-        android:name="com.example.notesv2.presentation.view.screens.detail.DetailFragment"
+        android:name="com.example.notesv2.presentation.view.screens.DetailFragment"
         android:label=""
         tools:layout="@layout/fragment_detail" />
 

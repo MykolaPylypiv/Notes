@@ -7,7 +7,7 @@ import com.example.notesv2.R
 import com.example.notesv2.domain.repositories.ChangeLayoutRepository
 import javax.inject.Inject
 
-class ChangeLayoutRealization @Inject constructor() : ChangeLayoutRepository {
+class ChangeLayoutRepositoryImpl @Inject constructor() : ChangeLayoutRepository {
 
     override val isLayout = MutableLiveData<Boolean>()
 

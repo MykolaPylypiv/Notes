@@ -9,7 +9,8 @@ import com.example.notesv2.core.AbstractViewHolder
 import com.example.notesv2.core.Mapper
 import com.example.notesv2.domain.model.Notes
 import com.example.notesv2.databinding.FragmentNotesItemBinding
-import com.example.notesv2.presentation.view.screens.favorite.FavoriteViewModel
+import com.example.notesv2.presentation.model.WidgetsNotes
+import com.example.notesv2.presentation.viewmodel.FavoriteViewModel
 import com.example.notesv2.presentation.ui.FavoriteUi
 
 class FavoriteAdapter(
@@ -30,7 +31,7 @@ class FavoriteViewHolder(
     private val favoriteBT: Button = binding.favorite
     private val deleteBT: Button = binding.delete
 
-    private val mapper = FavoriteUi.Mapper.Ui(FavoriteUi.Widgets(themeView, favoriteBT), viewModel)
+    private val mapper = FavoriteUi.Mapper.Ui(WidgetsNotes(themeView, favoriteBT), viewModel)
 
     override fun bind(data: Notes) {
         mapper.map(data)

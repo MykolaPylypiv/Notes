@@ -1,22 +1,21 @@
 package com.example.notesv2.presentation.ui
 
-import android.widget.Button
-import android.widget.TextView
 import com.example.notesv2.core.AbstractUi
 import com.example.notesv2.domain.model.Notes
-import com.example.notesv2.presentation.view.screens.favorite.FavoriteViewModel
+import com.example.notesv2.presentation.model.WidgetsNotes
+import com.example.notesv2.presentation.viewmodel.FavoriteViewModel
 import kotlinx.coroutines.Job
 
 interface FavoriteUi : AbstractUi {
 
-    fun <T> map(mapper: Mapper<T>): T
+    fun map(mapper: Mapper<Notes>): Notes
 
     interface Mapper<T> {
 
         fun map(item: Notes): T
 
         class Ui(
-            private val widgets: Widgets,
+            private val widgets: WidgetsNotes,
             private val viewModel: FavoriteViewModel,
         ) : Mapper<Unit> {
 
@@ -48,10 +47,5 @@ interface FavoriteUi : AbstractUi {
             override fun map(item: Notes) = viewModel.like(item)
         }
     }
-
-    data class Widgets(
-        val themeView: TextView,
-        val favoriteBT: Button,
-    )
 }
 

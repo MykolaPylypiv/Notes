@@ -1,4 +1,4 @@
-package com.example.notesv2.presentation.view.screens.favorite
+package com.example.notesv2.presentation.view.screens
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,6 +9,7 @@ import com.example.notesv2.R
 import com.example.notesv2.core.BaseFragment
 import com.example.notesv2.databinding.FragmentFavoriteBinding
 import com.example.notesv2.presentation.view.adapter.FavoriteAdapter
+import com.example.notesv2.presentation.viewmodel.FavoriteViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

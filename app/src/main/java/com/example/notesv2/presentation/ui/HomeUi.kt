@@ -1,10 +1,9 @@
 package com.example.notesv2.presentation.ui
 
-import android.widget.Button
-import android.widget.TextView
 import com.example.notesv2.core.AbstractUi
 import com.example.notesv2.domain.model.Notes
-import com.example.notesv2.presentation.view.screens.home.HomeViewModel
+import com.example.notesv2.presentation.model.WidgetsNotes
+import com.example.notesv2.presentation.viewmodel.HomeViewModel
 import kotlinx.coroutines.Job
 
 interface HomeUi : AbstractUi {
@@ -16,7 +15,7 @@ interface HomeUi : AbstractUi {
         fun map(item: Notes): T
 
         class Ui(
-            private val widgets: Widgets,
+            private val widgets: WidgetsNotes,
             private val viewModel: HomeViewModel,
         ) : Mapper<Unit> {
 
@@ -47,10 +46,5 @@ interface HomeUi : AbstractUi {
             override fun map(item: Notes) = viewModel.like(item)
         }
     }
-
-    data class Widgets(
-        val themeView: TextView,
-        val favoriteBT: Button,
-    )
 }
 

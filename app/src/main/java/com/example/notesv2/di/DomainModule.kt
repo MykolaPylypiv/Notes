@@ -1,14 +1,11 @@
 package com.example.notesv2.di
 
-import com.example.notesv2.domain.interactor.InteractorFavorite
-import com.example.notesv2.domain.interactor.InteractorHome
-import com.example.notesv2.domain.interactor.usecases.ChangeLayoutUseCase
-import com.example.notesv2.domain.interactor.usecases.EmptyVisibilityUseCase
-import com.example.notesv2.domain.interactor.usecases.FavoriteChangeUseCase
-import com.example.notesv2.domain.interactor.usecases.noteFunction.DeleteAllNoteUseCase
-import com.example.notesv2.domain.interactor.usecases.noteFunction.DeleteNoteUseCase
-import com.example.notesv2.domain.interactor.usecases.noteFunction.NotesUseCase
-import com.example.notesv2.presentation.view.dialog.DeleteDialog
+import com.example.notesv2.domain.interactor.FavoriteInteractor
+import com.example.notesv2.domain.interactor.HomeInteractor
+import com.example.notesv2.domain.interactor.usecases.*
+import com.example.notesv2.domain.repositories.ChangeFavoriteRepository
+import com.example.notesv2.domain.repositories.ChangeLayoutRepository
+import com.example.notesv2.domain.repositories.ChangeVisibilityRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,29 +17,26 @@ class DomainModule {
 
     @Provides
     fun provideInteractorHome(
-        favoriteChangeUseCase: FavoriteChangeUseCase,
-        changeLayoutUseCase: ChangeLayoutUseCase,
-        visibilityUseCase: EmptyVisibilityUseCase,
+        favoriteChange: ChangeFavoriteRepository,
+        changeLayout: ChangeLayoutRepository,
+        visibility: ChangeVisibilityRepository,
         notesUseCase: NotesUseCase,
         deleteNoteUseCase: DeleteNoteUseCase,
         deleteAllNoteUseCase: DeleteAllNoteUseCase,
-        deleteDialog: DeleteDialog
-    ): InteractorHome = InteractorHome(
-        favoriteChangeUseCase,
-        changeLayoutUseCase,
-        visibilityUseCase,
-        notesUseCase,
-        deleteNoteUseCase,
-        deleteAllNoteUseCase,
-        deleteDialog
+    ): HomeInteractor = HomeInteractor.Base(
+        favoriteChange, changeLayout, visibility, notesUseCase,
+        deleteNoteUseCase, deleteAllNoteUseCase,
     )
 
     @Provides
     fun provideInteractorFavorite(
-        favoriteChangeUseCase: FavoriteChangeUseCase,
-        visibilityUseCase: EmptyVisibilityUseCase,
-    ): InteractorFavorite = InteractorFavorite(
-        favoriteChangeUseCase,
-        visibilityUseCase,
+        favoriteChange: ChangeFavoriteRepository,
+        visibility: ChangeVisibilityRepository,
+        likeNotesUseCase: LikeNotesUseCase,
+        deleteNoteUseCase: DeleteNoteUseCase,
+        updateNoteUseCase: UpdateNoteUseCase,
+    ): FavoriteInteractor = FavoriteInteractor.Base(
+        favoriteChange, visibility, likeNotesUseCase,
+        deleteNoteUseCase, updateNoteUseCase
     )
 }

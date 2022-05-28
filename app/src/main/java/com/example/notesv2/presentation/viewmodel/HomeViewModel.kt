@@ -1,4 +1,4 @@
-package com.example.notesv2.presentation.view.screens.home
+package com.example.notesv2.presentation.viewmodel
 
 import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentActivity
@@ -6,10 +6,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.notesv2.R
 import com.example.notesv2.core.BaseViewModel
-import com.example.notesv2.domain.interactor.InteractorHome
-import com.example.notesv2.domain.interactor.usecases.noteFunction.DeleteAllNoteUseCase
-import com.example.notesv2.domain.interactor.usecases.noteFunction.DeleteNoteUseCase
-import com.example.notesv2.domain.interactor.usecases.noteFunction.NotesUseCase
+import com.example.notesv2.domain.interactor.HomeInteractor
+import com.example.notesv2.domain.interactor.usecases.UpdateNoteUseCase
 import com.example.notesv2.domain.model.Notes
 import com.example.notesv2.presentation.view.dialog.DeleteDialog
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,10 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val notesUseCase: NotesUseCase,
-    private val deleteNoteUseCase: DeleteNoteUseCase,
-    private val deleteAllNoteUseCase: DeleteAllNoteUseCase,
-    private val interactor: InteractorHome,
+    private val interactor: HomeInteractor,
+    private val updateNoteUseCase: UpdateNoteUseCase,
     private val deleteDialog: DeleteDialog,
 ) : BaseViewModel() {
 
@@ -34,27 +30,31 @@ class HomeViewModel @Inject constructor(
     fun showDialog(activity: FragmentActivity, viewModel: HomeViewModel) =
         deleteDialog.showDialog(activity, viewModel)
 
-    fun getAllNotes() = notesUseCase.invoke()
+    fun getAllNotes() = interactor.getAllNotes()
 
     fun delete(item: Notes) =
         viewModelScope.launch {
-            deleteNoteUseCase.invoke(item)
+            interactor.delete(item)
         }
 
     fun deleteAll() =
         viewModelScope.launch {
-            deleteAllNoteUseCase.invoke()
+            interactor.deleteAll()
         }
 
-    fun changeLayoutManager() = interactor.changeLayout().changeLayoutManager()
-    fun backgroundLayout() = interactor.changeLayout().backgroundChangeLayout()
-    val isLayout = interactor.changeLayout().isLayout
-    val layoutWidth = interactor.changeLayout().layoutWidth
+    fun changeLayoutManager() = interactor.changeLayoutManager()
 
-    fun visible(list: List<Notes>) = interactor.visibility().visible(list)
+    fun backgroundLayout() = interactor.backgroundLayout()
 
-    fun like(notes: Notes) = interactor.favoriteChange().like(notes)
-    fun likeShow(notes: Notes) = interactor.favoriteChange().likeShow(notes)
+    val isLayout = interactor.isLayout
+
+    val layoutWidth = interactor.layoutWidth
+
+    fun changeVisibility(list: List<Notes>) = interactor.changeVisibility(list)
+
+    fun like(notes: Notes) = interactor.like(notes, updateNoteUseCase)
+
+    fun likeShow(notes: Notes) = interactor.likeShow(notes)
 
     fun themeClick(uid: Int, navigate: Boolean = true) {
         val bundle = bundleOf("uid" to uid, "navigate" to navigate)

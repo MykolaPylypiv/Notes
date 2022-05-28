@@ -8,6 +8,6 @@ interface AbstractUi {
 
     interface Mapper<T> {
 
-        fun map(item: Notes): T
+        fun map(item: Notes): T             //TODO
     }
 }

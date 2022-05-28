@@ -1,10 +1,10 @@
-package com.example.notesv2.presentation.view.screens.add
+package com.example.notesv2.presentation.viewmodel
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.viewModelScope
 import com.example.notesv2.core.BaseViewModel
 import com.example.notesv2.domain.model.Notes
-import com.example.notesv2.domain.interactor.usecases.noteFunction.InsertNoteUseCase
+import com.example.notesv2.domain.interactor.usecases.InsertNoteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

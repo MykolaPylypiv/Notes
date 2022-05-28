@@ -1,4 +1,4 @@
-package com.example.notesv2.domain.interactor.usecases.noteFunction
+package com.example.notesv2.domain.interactor.usecases
 
 import com.example.notesv2.domain.repositories.Repository
 import javax.inject.Inject
