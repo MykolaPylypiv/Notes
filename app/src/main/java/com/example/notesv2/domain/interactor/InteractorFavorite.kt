@@ -1,7 +1,7 @@
 package com.example.notesv2.domain.interactor
 
-import com.example.notesv2.domain.usecases.EmptyVisibilityUseCase
-import com.example.notesv2.domain.usecases.FavoriteChangeUseCase
+import com.example.notesv2.domain.interactor.usecases.EmptyVisibilityUseCase
+import com.example.notesv2.domain.interactor.usecases.FavoriteChangeUseCase
 import javax.inject.Inject
 
 class InteractorFavorite @Inject constructor(

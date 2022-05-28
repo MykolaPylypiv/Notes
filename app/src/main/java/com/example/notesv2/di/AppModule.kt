@@ -2,9 +2,8 @@ package com.example.notesv2.di
 
 import android.content.Context
 import androidx.room.Room
+import com.example.notesv2.DATABASE_NAME
 import com.example.notesv2.data.db.AppDatabase
-import com.example.notesv2.data.repository.NoteRealization
-import com.example.notesv2.domain.repositories.NoteRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,19 +15,10 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class AppModule {
 
-    @Provides
-    fun provideRepository(database: AppDatabase): NoteRepository =
-        NoteRealization(database.notesDao())
-
-
     @Singleton
     @Provides
     fun provideDatabase(@ApplicationContext context: Context): AppDatabase =
-        Room.databaseBuilder(context, AppDatabase::class.java, "db")
+        Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
             .fallbackToDestructiveMigration()
             .build()
-
-
-    @Provides
-    fun provideApplicationContext(@ApplicationContext context: Context): Context = context
 }

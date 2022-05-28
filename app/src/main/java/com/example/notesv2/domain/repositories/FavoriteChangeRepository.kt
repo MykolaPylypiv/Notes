@@ -1,7 +1,7 @@
 package com.example.notesv2.domain.repositories
 
-import com.example.notesv2.data.entities.Notes
-import com.example.notesv2.domain.usecases.noteFunction.UpdateNoteUseCase
+import com.example.notesv2.domain.interactor.usecases.noteFunction.UpdateNoteUseCase
+import com.example.notesv2.domain.model.Notes
 
 interface FavoriteChangeRepository {
 

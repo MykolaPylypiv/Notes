@@ -1,8 +1,8 @@
 package com.example.notesv2.di
 
 import com.example.notesv2.core.Dialog
-import com.example.notesv2.presentation.dialog.DeleteDialog
-import com.example.notesv2.presentation.screens.home.HomeViewModel
+import com.example.notesv2.presentation.view.dialog.DeleteDialog
+import com.example.notesv2.presentation.view.screens.home.HomeViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

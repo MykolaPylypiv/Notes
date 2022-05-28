@@ -3,8 +3,8 @@ package com.example.notesv2.presentation.ui
 import android.widget.Button
 import android.widget.TextView
 import com.example.notesv2.core.AbstractUi
-import com.example.notesv2.data.entities.Notes
-import com.example.notesv2.presentation.screens.favorite.FavoriteViewModel
+import com.example.notesv2.domain.model.Notes
+import com.example.notesv2.presentation.view.screens.favorite.FavoriteViewModel
 import kotlinx.coroutines.Job
 
 interface FavoriteUi : AbstractUi {

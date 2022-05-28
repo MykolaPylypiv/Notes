@@ -2,7 +2,7 @@ package com.example.notesv2.data.db.room
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.notesv2.data.entities.Notes
+import com.example.notesv2.domain.model.Notes
 
 @Dao
 interface NotesDao {

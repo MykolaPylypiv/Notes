@@ -1,6 +1,8 @@
 package com.example.notesv2.data.repository
 
 import androidx.lifecycle.MutableLiveData
+import com.example.notesv2.ARROW_VIEW
+import com.example.notesv2.GRID_VIEW
 import com.example.notesv2.R
 import com.example.notesv2.domain.repositories.ChangeLayoutRepository
 import javax.inject.Inject
@@ -23,9 +25,4 @@ class ChangeLayoutRealization @Inject constructor() : ChangeLayoutRepository {
 
     override fun backgroundLayout() =
         if (isLayout.value == true) ARROW_VIEW else GRID_VIEW
-
-    companion object {
-        const val GRID_VIEW = R.drawable.ic_outline_grid_view_24
-        const val ARROW_VIEW = R.drawable.ic_round_view_list_24
-    }
 }

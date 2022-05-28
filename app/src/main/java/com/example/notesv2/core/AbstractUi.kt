@@ -1,6 +1,6 @@
 package com.example.notesv2.core
 
-import com.example.notesv2.data.entities.Notes
+import com.example.notesv2.domain.model.Notes
 
 interface AbstractUi {
 
