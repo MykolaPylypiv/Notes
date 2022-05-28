@@ -2,7 +2,6 @@ package com.example.notesv2.presentation.ui
 
 import android.widget.Button
 import android.widget.TextView
-import androidx.navigation.NavController
 import com.example.notesv2.core.AbstractUi
 import com.example.notesv2.data.entities.Notes
 import com.example.notesv2.presentation.screens.home.HomeViewModel

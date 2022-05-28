@@ -8,13 +8,9 @@ import com.example.notesv2.R
 import com.example.notesv2.core.BaseViewModel
 import com.example.notesv2.data.entities.Notes
 import com.example.notesv2.domain.interactor.InteractorHome
-import com.example.notesv2.domain.repositories.ChangeLayoutRepository
-import com.example.notesv2.domain.repositories.EmptyVisibilityRepository
-import com.example.notesv2.domain.repositories.FavoriteChangeRepository
 import com.example.notesv2.domain.usecases.noteFunction.DeleteAllNoteUseCase
 import com.example.notesv2.domain.usecases.noteFunction.DeleteNoteUseCase
 import com.example.notesv2.domain.usecases.noteFunction.NotesUseCase
-import com.example.notesv2.domain.usecases.noteFunction.UpdateNoteUseCase
 import com.example.notesv2.presentation.dialog.DeleteDialog
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -24,11 +20,10 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val notesUseCase: NotesUseCase,
     private val deleteNoteUseCase: DeleteNoteUseCase,
-    private val updateNoteUseCase: UpdateNoteUseCase,
     private val deleteAllNoteUseCase: DeleteAllNoteUseCase,
     private val interactor: InteractorHome,
     private val deleteDialog: DeleteDialog
-) : BaseViewModel(), ChangeLayoutRepository, EmptyVisibilityRepository, FavoriteChangeRepository {
+) : BaseViewModel() {
 
     private lateinit var findNavController: NavController
 
@@ -46,25 +41,20 @@ class HomeViewModel @Inject constructor(
             deleteNoteUseCase.invoke(item)
         }
 
-    fun update(item: Notes) =
-        viewModelScope.launch {
-            updateNoteUseCase.invoke(item)
-        }
-
     fun deleteAll() =
         viewModelScope.launch {
             deleteAllNoteUseCase.invoke()
         }
 
-    override fun changeLayoutManager() = interactor.changeLayout.changeLayoutManager()
-    override fun backgroundLayout() = interactor.changeLayout.backgroundChangeLayout()
-    override val isLayout = interactor.changeLayout.isLayout
-    override val layoutWidth = interactor.changeLayout.layoutWidth
+    fun changeLayoutManager() = interactor.changeLayout.changeLayoutManager()
+    fun backgroundLayout() = interactor.changeLayout.backgroundChangeLayout()
+    val isLayout = interactor.changeLayout.isLayout
+    val layoutWidth = interactor.changeLayout.layoutWidth
 
-    override fun visible(list: List<Notes>) = interactor.visibility.visible(list)
+    fun visible(list: List<Notes>) = interactor.visibility.visible(list)
 
-    override fun like(notes: Notes) = interactor.favoriteChange.like(notes)
-    override fun likeShow(notes: Notes) = interactor.favoriteChange.likeShow(notes)
+    fun like(notes: Notes) = interactor.favoriteChange.like(notes)
+    fun likeShow(notes: Notes) = interactor.favoriteChange.likeShow(notes)
 
     fun themeClick(uid: Int, navigate: Boolean = true) {
         val bundle = bundleOf("uid" to uid, "navigate" to navigate)

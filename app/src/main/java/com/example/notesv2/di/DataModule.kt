@@ -6,27 +6,28 @@ import com.example.notesv2.data.repository.FavoriteChangeRealization
 import com.example.notesv2.domain.repositories.ChangeLayoutRepository
 import com.example.notesv2.domain.repositories.EmptyVisibilityRepository
 import com.example.notesv2.domain.repositories.FavoriteChangeRepository
-import com.example.notesv2.domain.usecases.noteFunction.UpdateNoteUseCase
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 
 @Module
 @InstallIn(ViewModelComponent::class)
-class DataModule {
+abstract class DataModule() {
 
-    @Provides
-    fun provideEmptyVisibilityRealization():
-            EmptyVisibilityRepository = EmptyVisibilityRealization()
+    @Binds
+    abstract fun provideEmptyVisibilityRealization(
+        realization: EmptyVisibilityRealization
+    ): EmptyVisibilityRepository
+
+    @Binds
+    abstract fun provideFavoriteChangeRealization(
+        realization: FavoriteChangeRealization
+    ): FavoriteChangeRepository
 
 
-    @Provides
-    fun provideFavoriteChangeRealization(updateNoteUseCase: UpdateNoteUseCase): FavoriteChangeRepository =
-        FavoriteChangeRealization(updateNoteUseCase)
-
-
-    @Provides
-    fun provideChangeLayoutRealization(): ChangeLayoutRepository = ChangeLayoutRealization()
-
+    @Binds
+    abstract fun provideChangeLayoutRealization(
+        realization: ChangeLayoutRealization
+    ): ChangeLayoutRepository
 }

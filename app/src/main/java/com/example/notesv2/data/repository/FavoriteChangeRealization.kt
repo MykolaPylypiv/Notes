@@ -9,9 +9,7 @@ import com.example.notesv2.domain.usecases.noteFunction.UpdateNoteUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class FavoriteChangeRealization @Inject constructor(
-    private val updateNoteUseCase: UpdateNoteUseCase
-) : ViewModel(), FavoriteChangeRepository {
+class FavoriteChangeRealization @Inject constructor() : ViewModel(), FavoriteChangeRepository {
 
     override fun likeShow(notes: Notes) =
         if (notes.isLike)
@@ -19,7 +17,7 @@ class FavoriteChangeRealization @Inject constructor(
         else
             DISLIKE_ICON
 
-    override fun like(notes: Notes): Int {
+    override fun like(notes: Notes, updateNoteUseCase: UpdateNoteUseCase): Int {
         notes.isLike = !notes.isLike
 
         viewModelScope.launch {

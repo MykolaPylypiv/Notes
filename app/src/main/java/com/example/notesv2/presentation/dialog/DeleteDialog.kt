@@ -5,8 +5,9 @@ import androidx.fragment.app.FragmentActivity
 import com.example.notesv2.R
 import com.example.notesv2.core.Dialog
 import com.example.notesv2.presentation.screens.home.HomeViewModel
+import javax.inject.Inject
 
-class DeleteDialog : Dialog<HomeViewModel> {
+class DeleteDialog @Inject constructor() : Dialog<HomeViewModel> {
 
     override fun createDeleteDialog(
         activity: FragmentActivity,
