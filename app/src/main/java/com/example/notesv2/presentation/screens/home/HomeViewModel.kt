@@ -2,6 +2,7 @@ package com.example.notesv2.presentation.screens.home
 
 import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.notesv2.R
 import com.example.notesv2.core.BaseViewModel
@@ -10,12 +11,21 @@ import com.example.notesv2.domain.interactor.InteractorHome
 import com.example.notesv2.domain.repositories.ChangeLayoutRepository
 import com.example.notesv2.domain.repositories.EmptyVisibilityRepository
 import com.example.notesv2.domain.repositories.FavoriteChangeRepository
+import com.example.notesv2.domain.usecases.noteFunction.DeleteAllNoteUseCase
+import com.example.notesv2.domain.usecases.noteFunction.DeleteNoteUseCase
+import com.example.notesv2.domain.usecases.noteFunction.NotesUseCase
+import com.example.notesv2.domain.usecases.noteFunction.UpdateNoteUseCase
 import com.example.notesv2.presentation.dialog.DeleteDialog
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
+    private val notesUseCase: NotesUseCase,
+    private val deleteNoteUseCase: DeleteNoteUseCase,
+    private val updateNoteUseCase: UpdateNoteUseCase,
+    private val deleteAllNoteUseCase: DeleteAllNoteUseCase,
     private val interactor: InteractorHome,
     private val deleteDialog: DeleteDialog
 ) : BaseViewModel(), ChangeLayoutRepository, EmptyVisibilityRepository, FavoriteChangeRepository {
@@ -29,10 +39,22 @@ class HomeViewModel @Inject constructor(
     fun showDialog(activity: FragmentActivity, viewModel: HomeViewModel) =
         deleteDialog.showDialog(activity, viewModel)
 
-    fun getAllNotes() = interactor.daoRealization.getAllNotes()
-    fun delete(notes: Notes) = interactor.daoRealization.delete(notes)
-    fun update(notes: Notes) = interactor.daoRealization.update(notes)
-    fun deleteAll() = interactor.daoRealization.deleteAll()
+    fun getAllNotes() = notesUseCase.invoke()
+
+    fun delete(item: Notes) =
+        viewModelScope.launch {
+            deleteNoteUseCase.invoke(item)
+        }
+
+    fun update(item: Notes) =
+        viewModelScope.launch {
+            updateNoteUseCase.invoke(item)
+        }
+
+    fun deleteAll() =
+        viewModelScope.launch {
+            deleteAllNoteUseCase.invoke()
+        }
 
     override fun changeLayoutManager() = interactor.changeLayout.changeLayoutManager()
     override fun backgroundLayout() = interactor.changeLayout.backgroundChangeLayout()

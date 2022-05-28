@@ -1,16 +1,24 @@
 package com.example.notesv2.presentation.screens.favorite
 
 import androidx.core.os.bundleOf
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.notesv2.R
 import com.example.notesv2.core.BaseViewModel
 import com.example.notesv2.data.entities.Notes
 import com.example.notesv2.domain.interactor.InteractorFavorite
+import com.example.notesv2.domain.usecases.noteFunction.DeleteNoteUseCase
+import com.example.notesv2.domain.usecases.noteFunction.LikeNotesUseCase
+import com.example.notesv2.domain.usecases.noteFunction.UpdateNoteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class FavoriteViewModel @Inject constructor(
+    private val likeNotesUseCase: LikeNotesUseCase,
+    private val deleteNoteUseCase: DeleteNoteUseCase,
+    private val updateNoteUseCase: UpdateNoteUseCase,
     private val interactor: InteractorFavorite
 ) : BaseViewModel() {
 
@@ -20,9 +28,17 @@ class FavoriteViewModel @Inject constructor(
         this.findNavController = findNavController
     }
 
-    fun getLikeNotes() = interactor.daoRealization.getLikeNotes()
-    fun delete(notes: Notes) = interactor.daoRealization.delete(notes)
-    fun update(notes: Notes) = interactor.daoRealization.update(notes)
+    fun getLikeNotes() = likeNotesUseCase.invoke()
+
+    fun delete(item: Notes) =
+        viewModelScope.launch {
+            deleteNoteUseCase.invoke(item)
+        }
+
+    fun update(item: Notes) =
+        viewModelScope.launch {
+            updateNoteUseCase.invoke(item)
+        }
 
     fun visibility(list: List<Notes>) = interactor.visibility.visible(list)
 
