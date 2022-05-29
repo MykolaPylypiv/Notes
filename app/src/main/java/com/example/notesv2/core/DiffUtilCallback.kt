@@ -13,6 +13,12 @@ class DiffUtilCallback<T>(
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
         oldList[oldItemPosition] == newList[newItemPosition]
 
+    override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
+        if (oldItemPosition == newItemPosition) return false
+
+        return super.getChangePayload(oldItemPosition, newItemPosition)
+    }
+
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
         oldList[oldItemPosition] == newList[newItemPosition]
 }

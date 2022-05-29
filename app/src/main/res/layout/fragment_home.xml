@@ -7,7 +7,7 @@
     tools:context=".presentation.view.screens.HomeFragment">
 
     <include
-        android:id="@+id/toolbar_home2"
+        android:id="@+id/toolbar_home"
         layout="@layout/action_bar" />
 
     <LinearLayout
@@ -17,7 +17,7 @@
         android:gravity="end"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_home2">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_home">
 
         <ImageButton
             android:id="@+id/delete_all"
