@@ -11,11 +11,13 @@ import com.example.notesv2.domain.model.Notes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 
 @HiltViewModel
 class FavoriteViewModel @Inject constructor(
     private val interactor: FavoriteInteractor,
-    private val updateNoteUseCase: UpdateNoteUseCase
+    private val updateNoteUseCase: UpdateNoteUseCase,
+    private val dispatchers: CoroutineContext
 ) : BaseViewModel() {
 
     private lateinit var findNavController: NavController
@@ -24,16 +26,23 @@ class FavoriteViewModel @Inject constructor(
         this.findNavController = findNavController
     }
 
-    fun getLikeNotes() = interactor.getLikeNotes()
+    fun favoriteNotes() = interactor.favoriteNotes()
 
     fun delete(item: Notes) =
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers) {
             interactor.delete(item)
         }
 
     fun visibility(list: List<Notes>) = interactor.changeVisibility(list)
 
-    fun like(notes: Notes) = interactor.like(notes, updateNoteUseCase)
+    fun like(notes: Notes): Int {
+        viewModelScope.launch(dispatchers) {
+            updateNoteUseCase.invoke(notes)
+        }
+
+        return interactor.like(notes)
+    }
+
     fun likeShow(notes: Notes) = interactor.likeShow(notes)
 
     fun themeClick(uid: Int, navigate: Boolean = false) {

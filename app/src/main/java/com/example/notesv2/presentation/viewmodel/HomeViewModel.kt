@@ -13,12 +13,14 @@ import com.example.notesv2.presentation.view.dialog.DeleteDialog
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val interactor: HomeInteractor,
     private val updateNoteUseCase: UpdateNoteUseCase,
     private val deleteDialog: DeleteDialog,
+    private val dispatchers: CoroutineContext,
 ) : BaseViewModel() {
 
     private lateinit var findNavController: NavController
@@ -30,15 +32,15 @@ class HomeViewModel @Inject constructor(
     fun showDialog(activity: FragmentActivity, viewModel: HomeViewModel) =
         deleteDialog.showDialog(activity, viewModel)
 
-    fun getAllNotes() = interactor.getAllNotes()
+    fun notes() = interactor.notes()
 
-    fun delete(item: Notes) =
-        viewModelScope.launch {
-            interactor.delete(item)
+    fun delete(notes: Notes) =
+        viewModelScope.launch(dispatchers) {
+            interactor.delete(notes)
         }
 
     fun deleteAll() =
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers) {
             interactor.deleteAll()
         }
 
@@ -52,7 +54,13 @@ class HomeViewModel @Inject constructor(
 
     fun changeVisibility(list: List<Notes>) = interactor.changeVisibility(list)
 
-    fun like(notes: Notes) = interactor.like(notes, updateNoteUseCase)
+    fun like(notes: Notes): Int {
+        viewModelScope.launch(dispatchers) {
+            updateNoteUseCase.invoke(notes)
+        }
+
+        return interactor.like(notes)
+    }
 
     fun likeShow(notes: Notes) = interactor.likeShow(notes)
 

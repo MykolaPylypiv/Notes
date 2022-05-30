@@ -3,19 +3,19 @@ package com.example.notesv2.domain.interactor
 import androidx.lifecycle.LiveData
 import com.example.notesv2.core.Visibility
 import com.example.notesv2.domain.interactor.usecases.DeleteNoteUseCase
-import com.example.notesv2.domain.interactor.usecases.LikeNotesUseCase
+import com.example.notesv2.domain.interactor.usecases.FavoriteNotesUseCase
 import com.example.notesv2.domain.interactor.usecases.UpdateNoteUseCase
 import com.example.notesv2.domain.model.Notes
 import com.example.notesv2.domain.repositories.*
 import javax.inject.Inject
 
 interface FavoriteInteractor : ChangeVisibilityRepository, ChangeFavoriteRepository,
-    GetLikeNotes, DeleteNote, UpdateNote {
+    FavoriteNote, DeleteNote, UpdateNote {
 
     class Base @Inject constructor(
         private val favoriteChange: ChangeFavoriteRepository,
         private val visibility: ChangeVisibilityRepository,
-        private val likeNotesUseCase: LikeNotesUseCase,
+        private val favoriteNotesUseCase: FavoriteNotesUseCase,
         private val deleteNoteUseCase: DeleteNoteUseCase,
         private val updateNoteUseCase: UpdateNoteUseCase,
     ) : FavoriteInteractor {
@@ -23,14 +23,14 @@ interface FavoriteInteractor : ChangeVisibilityRepository, ChangeFavoriteReposit
         override fun changeVisibility(list: List<Notes>): Visibility.Abstract =
             visibility.changeVisibility(list)
 
-        override fun like(notes: Notes, updateNoteUseCase: UpdateNoteUseCase): Int =
-            favoriteChange.like(notes, updateNoteUseCase)
+        override fun like(notes: Notes): Int =
+            favoriteChange.like(notes)
 
         override fun likeShow(notes: Notes): Int =
             favoriteChange.likeShow(notes)
 
-        override fun getLikeNotes(): LiveData<List<Notes>> =
-            likeNotesUseCase.invoke()
+        override fun favoriteNotes(): LiveData<List<Notes>> =
+            favoriteNotesUseCase.invoke()
 
         override suspend fun delete(notes: Notes) =
             deleteNoteUseCase.invoke(notes)

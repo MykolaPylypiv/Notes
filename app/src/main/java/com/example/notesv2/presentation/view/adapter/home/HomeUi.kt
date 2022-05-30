@@ -1,14 +1,12 @@
-package com.example.notesv2.presentation.ui
+package com.example.notesv2.presentation.view.adapter.home
 
 import com.example.notesv2.core.AbstractUi
 import com.example.notesv2.domain.model.Notes
 import com.example.notesv2.presentation.model.WidgetsNotes
-import com.example.notesv2.presentation.viewmodel.FavoriteViewModel
+import com.example.notesv2.presentation.viewmodel.HomeViewModel
 import kotlinx.coroutines.Job
 
-interface FavoriteUi : AbstractUi {
-
-    fun map(mapper: Mapper<Notes>): Notes
+interface HomeUi : AbstractUi {
 
     interface Mapper<T> {
 
@@ -16,7 +14,7 @@ interface FavoriteUi : AbstractUi {
 
         class Ui(
             private val widgets: WidgetsNotes,
-            private val viewModel: FavoriteViewModel,
+            private val viewModel: HomeViewModel,
         ) : Mapper<Unit> {
 
             override fun map(item: Notes) {
@@ -26,22 +24,21 @@ interface FavoriteUi : AbstractUi {
         }
 
         class Theme(
-            private val viewModel: FavoriteViewModel,
+            private val viewModel: HomeViewModel,
         ) : Mapper<Unit> {
 
-            override fun map(item: Notes) =
-                viewModel.themeClick(item.uid)
+            override fun map(item: Notes) = viewModel.themeClick(item.uid)
         }
 
         class Delete(
-            private val viewModel: FavoriteViewModel,
+            private val viewModel: HomeViewModel,
         ) : Mapper<Job> {
 
             override fun map(item: Notes) = viewModel.delete(item)
         }
 
         class Favorite(
-            private val viewModel: FavoriteViewModel,
+            private val viewModel: HomeViewModel,
         ) : Mapper<Int> {
 
             override fun map(item: Notes) = viewModel.like(item)

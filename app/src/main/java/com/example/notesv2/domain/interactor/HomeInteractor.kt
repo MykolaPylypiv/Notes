@@ -12,7 +12,7 @@ import com.example.notesv2.domain.repositories.*
 import javax.inject.Inject
 
 interface HomeInteractor : ChangeFavoriteRepository, ChangeLayoutRepository,
-    ChangeVisibilityRepository, GetAllNotes, DeleteNote, DeleteAllNotes {
+    ChangeVisibilityRepository, Repository, DeleteNote, DeleteAllNotes {
 
     class Base @Inject constructor(
         private val changeFavorite: ChangeFavoriteRepository,
@@ -23,6 +23,9 @@ interface HomeInteractor : ChangeFavoriteRepository, ChangeLayoutRepository,
         private val deleteAllNoteUseCase: DeleteAllNoteUseCase,
     ) : HomeInteractor {
 
+        override fun changeVisibility(list: List<Notes>): Visibility.Abstract =
+            changeVisibility.changeVisibility(list)
+
         override fun changeLayoutManager() = changeLayout.changeLayoutManager()
 
         override fun backgroundLayout(): Int = changeLayout.backgroundLayout()
@@ -31,17 +34,14 @@ interface HomeInteractor : ChangeFavoriteRepository, ChangeLayoutRepository,
 
         override val layoutWidth: MutableLiveData<Int> = changeLayout.layoutWidth
 
-        override fun changeVisibility(list: List<Notes>): Visibility.Abstract =
-            changeVisibility.changeVisibility(list)
-
-        override fun getAllNotes(): LiveData<List<Notes>> = notesUseCase.invoke()
+        override fun notes(): LiveData<List<Notes>> = notesUseCase.invoke()
 
         override suspend fun delete(notes: Notes) = deleteNoteUseCase.invoke(notes)
 
         override suspend fun deleteAll() = deleteAllNoteUseCase.invoke()
 
-        override fun like(notes: Notes, updateNoteUseCase: UpdateNoteUseCase): Int =
-            changeFavorite.like(notes, updateNoteUseCase)
+        override fun like(notes: Notes): Int =
+            changeFavorite.like(notes)
 
         override fun likeShow(notes: Notes): Int = changeFavorite.likeShow(notes)
     }

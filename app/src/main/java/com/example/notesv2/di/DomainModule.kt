@@ -1,5 +1,9 @@
 package com.example.notesv2.di
 
+import android.content.Context
+import com.example.notesv2.core.DoToast
+import com.example.notesv2.domain.interactor.AddInteractor
+import com.example.notesv2.domain.interactor.DetailInteractor
 import com.example.notesv2.domain.interactor.FavoriteInteractor
 import com.example.notesv2.domain.interactor.HomeInteractor
 import com.example.notesv2.domain.interactor.usecases.*
@@ -32,11 +36,29 @@ class DomainModule {
     fun provideInteractorFavorite(
         favoriteChange: ChangeFavoriteRepository,
         visibility: ChangeVisibilityRepository,
-        likeNotesUseCase: LikeNotesUseCase,
+        favoriteNotesUseCase: FavoriteNotesUseCase,
         deleteNoteUseCase: DeleteNoteUseCase,
         updateNoteUseCase: UpdateNoteUseCase,
     ): FavoriteInteractor = FavoriteInteractor.Base(
-        favoriteChange, visibility, likeNotesUseCase,
+        favoriteChange, visibility, favoriteNotesUseCase,
         deleteNoteUseCase, updateNoteUseCase
+    )
+
+    @Provides
+    fun provideInteractorAdd(
+        insertNoteUseCase: InsertNoteUseCase,
+        toast: DoToast,
+        context: Context
+    ): AddInteractor = AddInteractor.Base(
+        insertNoteUseCase, toast, context
+    )
+
+    @Provides
+    fun provideInteractorDetail(
+        updateNoteUseCase: UpdateNoteUseCase,
+        toast: DoToast,
+        context: Context
+    ): DetailInteractor = DetailInteractor.Base(
+        updateNoteUseCase, toast, context
     )
 }

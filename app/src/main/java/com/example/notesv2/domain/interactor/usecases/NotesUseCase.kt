@@ -9,5 +9,5 @@ class NotesUseCase @Inject constructor(
     private val repository: Repository,
 ) {
 
-    fun invoke(): LiveData<List<Notes>> = repository.getAllNotes()
+    fun invoke(): LiveData<List<Notes>> = repository.notes()
 }

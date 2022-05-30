@@ -6,8 +6,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.notesv2.R
 import com.example.notesv2.core.BaseFragment
-import com.example.notesv2.domain.model.Notes
 import com.example.notesv2.databinding.FragmentDetailBinding
+import com.example.notesv2.domain.model.Notes
 import com.example.notesv2.presentation.viewmodel.DetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,13 +19,14 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     private val viewModel: DetailViewModel by viewModels()
 
     override fun init() {
-
         val uid = arguments?.get("uid") as Int
         val navigate = arguments?.get("navigate") as Boolean
+        var isLike = true
 
         viewModel.findByUid(uid).observe(viewLifecycleOwner) {
             binding.themeDetailInputEditText.setText(it.theme)
             binding.contentDetailInputEditText.setText(it.content)
+            isLike = it.isLike
         }
 
         binding.back.setOnClickListener {
@@ -36,9 +37,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
             val theme = binding.themeDetailInputEditText.text.toString()
             val content = binding.contentDetailInputEditText.text.toString()
 
-            viewModel.saveCLick(
-                Notes(uid = uid, theme = theme, content = content),
-                findNavController(), navigate)
+            viewModel.saveChange(Notes(uid, theme, content, isLike))
+            viewModel.navigateTo(findNavController(), navigate)
         }
 
         binding.toolbar.textView.setText(R.string.notes_details)

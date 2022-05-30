@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.notesv2.R
 import com.example.notesv2.core.BaseFragment
 import com.example.notesv2.databinding.FragmentFavoriteBinding
-import com.example.notesv2.presentation.view.adapter.FavoriteAdapter
+import com.example.notesv2.presentation.view.adapter.favorite.FavoriteAdapter
 import com.example.notesv2.presentation.viewmodel.FavoriteViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,7 +26,7 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>() {
         val adapter = FavoriteAdapter(viewModel)
         recyclerView.adapter = adapter
 
-        viewModel.getLikeNotes().observe(viewLifecycleOwner) { list ->
+        viewModel.favoriteNotes().observe(viewLifecycleOwner) { list ->
             adapter.map(list.asReversed())
             viewModel.visibility(list).apply(binding.empty)
         }

@@ -1,29 +1,15 @@
-package com.example.notesv2.presentation.view.adapter
+package com.example.notesv2.presentation.view.adapter.home
 
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import com.example.notesv2.core.AbstractRecyclerAdapter
 import com.example.notesv2.core.AbstractViewHolder
-import com.example.notesv2.core.Mapper
 import com.example.notesv2.databinding.FragmentNotesItemBinding
 import com.example.notesv2.domain.model.Notes
 import com.example.notesv2.presentation.model.WidgetsNotes
-import com.example.notesv2.presentation.ui.HomeUi
 import com.example.notesv2.presentation.viewmodel.HomeViewModel
+import kotlinx.coroutines.Job
 
-class NotesAdapter(
-    private val viewModel: HomeViewModel,
-) : AbstractRecyclerAdapter<Notes, NotesViewHolder>(), Mapper.Unit<List<Notes>> {
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = NotesViewHolder(
-        viewModel,
-        FragmentNotesItemBinding.inflate(LayoutInflater.from(parent.context), parent, false),
-    )
-}
-
-class NotesViewHolder(
+class HomeViewHolder(
     private val viewModel: HomeViewModel, binding: FragmentNotesItemBinding,
 ) : AbstractViewHolder<Notes>(binding.root) {
 

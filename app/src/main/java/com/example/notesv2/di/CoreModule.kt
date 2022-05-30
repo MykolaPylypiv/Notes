@@ -1,15 +1,20 @@
 package com.example.notesv2.di
 
+import android.content.Context
 import com.example.notesv2.core.DoToast
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 
 @Module
-@InstallIn(ViewModelComponent::class)
-class CoreModule {
+@InstallIn(SingletonComponent::class)
+abstract class CoreModule {
 
-    @Provides
-    fun provideToast(): DoToast = DoToast.Base()
+    @Binds
+    abstract fun bindToast(toast: DoToast.Base): DoToast
+
+    @Binds
+    abstract fun bindContext(@ApplicationContext context: Context): Context
 }

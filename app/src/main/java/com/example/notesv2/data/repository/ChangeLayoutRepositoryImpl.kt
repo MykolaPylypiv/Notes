@@ -3,7 +3,6 @@ package com.example.notesv2.data.repository
 import androidx.lifecycle.MutableLiveData
 import com.example.notesv2.ARROW_VIEW
 import com.example.notesv2.GRID_VIEW
-import com.example.notesv2.R
 import com.example.notesv2.domain.repositories.ChangeLayoutRepository
 import javax.inject.Inject
 
@@ -19,7 +18,7 @@ class ChangeLayoutRepositoryImpl @Inject constructor() : ChangeLayoutRepository 
     }
 
     override fun changeLayoutManager() {
-        if (isLayout.value == true) layoutWidth.value = 850 else layoutWidth.value = 1000
+        if (isLayout.value == true) layoutWidth.value = 600 else layoutWidth.value = 1000
         isLayout.value = !isLayout.value!!
     }
 

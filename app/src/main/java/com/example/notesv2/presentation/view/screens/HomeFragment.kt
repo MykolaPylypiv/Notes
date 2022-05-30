@@ -8,9 +8,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.notesv2.R
 import com.example.notesv2.core.BaseFragment
 import com.example.notesv2.databinding.FragmentHomeBinding
-import com.example.notesv2.presentation.view.adapter.NotesAdapter
 import com.example.notesv2.presentation.view.adapter.decorations.FeedHorizontalDividerItemDecoration
 import com.example.notesv2.presentation.view.adapter.decorations.GroupVerticalItemDecoration
+import com.example.notesv2.presentation.view.adapter.home.HomeAdapter
 import com.example.notesv2.presentation.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,7 +26,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         binding.toolbarHome.textView.setText(R.string.your_notes)
 
         val recyclerView = binding.list
-        val adapter = NotesAdapter(viewModel)
+        val adapter = HomeAdapter(viewModel)
         recyclerView.adapter = adapter
 
         with(recyclerView) {
@@ -36,7 +36,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         }
 
         val animAlpha = AnimationUtils.loadAnimation(context, R.anim.alpha_bt)
-        viewModel.getAllNotes().observe(viewLifecycleOwner) { list ->
+        viewModel.notes().observe(viewLifecycleOwner) { list ->
             adapter.map(list.asReversed())
             viewModel.changeVisibility(list).apply(binding.empty)
         }
